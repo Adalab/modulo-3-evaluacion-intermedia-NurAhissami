@@ -2,7 +2,7 @@ function Pokemon({image, name, types}) {
   return (
     <>
       <div>
-        <img src={image} alt="" />
+        <img src={image} alt={name} />
       </div>
       <h3>{name}</h3>
       <ul className="ulTypes">

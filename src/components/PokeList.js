@@ -1,7 +1,6 @@
-import pokemons from '../data/pokemons.json';
 import Pokemon from './Pokemon';
 
-function PokeList() {
+function PokeList({pokemons}) {
   return (
     <ul className="ulList">
       {pokemons.map((pokemon, idx) => (
