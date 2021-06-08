@@ -5,9 +5,11 @@ function Pokemon({image, name, types}) {
         <img src={image} alt="" />
       </div>
       <h3>{name}</h3>
-      <ul>
+      <ul className="ulTypes">
         {types.map((type, idx) => (
-          <li key={idx}>{type}</li>
+          <li className="PokemonTypes" key={idx}>
+            {type}
+          </li>
         ))}
       </ul>
     </>

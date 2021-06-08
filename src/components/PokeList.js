@@ -3,9 +3,9 @@ import Pokemon from './Pokemon';
 
 function PokeList() {
   return (
-    <ul>
+    <ul className="ulList">
       {pokemons.map((pokemon, idx) => (
-        <li key={idx}>
+        <li className="ListPokemon" key={idx}>
           <Pokemon
             image={pokemon.url}
             name={pokemon.name}
