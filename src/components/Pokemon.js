@@ -1,19 +1,22 @@
-function Pokemon({image, name, types}) {
+import React from 'react';
+
+const Pokemon = (props) => {
+  const pokeType = props.type.map((type, index) => {
+    return (
+      <li className="PokemonTypes" key={index}>
+        {type}
+      </li>
+    );
+  });
   return (
     <>
-      <div>
-        <img src={image} alt={name} />
-      </div>
-      <h3>{name}</h3>
-      <ul className="ulTypes">
-        {types.map((type, idx) => (
-          <li className="PokemonTypes" key={idx}>
-            {type}
-          </li>
-        ))}
-      </ul>
+      <article className="ListPokemon">
+        <img src={props.url} alt={props.name}></img>
+        <h3>{props.name}</h3>
+        <ul className="ulTypes">{pokeType}</ul>
+      </article>
     </>
   );
-}
+};
 
 export default Pokemon;
