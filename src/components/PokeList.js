@@ -3,22 +3,25 @@ import Pokemon from './Pokemon';
 import logo from '../images/logo-pokemon.png';
 
 const PokeList = (props) => {
-  const favorites = props.favorites.map((favorite) => {
+  const favorites = props.favorites.map((favorite, indx) => {
     return (
-      <li onClick={props.clickFavorites} className="listFav" key={favorite.id}>
+      <li key={indx} onClick={props.clickFavorites} className="listFav">
         <img src={favorite.url} alt={favorite.name} />
       </li>
     );
   });
-  const pokemon = props.pokemons.map((pokemon) => {
+  const pokemon = props.pokemons.map((pokemon, indx) => {
+    const ifFav = props.favorites.find(
+      (favorite) => favorite.id === pokemon.id
+    );
     return (
-      <li className="listPokemon" key={pokemon.id}>
+      <li key={pokemon.id} className="listPokemon">
         <button
           id={pokemon.id}
           onClick={() => props.favPokemon(pokemon.id)}
           className="favoritesHeart"
         >
-          <i className={props.color}></i>
+          <i className={ifFav ? 'fas fa-lg fa-heart' : 'far fa-heart'}></i>
         </button>
         <Link to={`./pokemon/${pokemon.id}`}>
           <Pokemon
@@ -46,5 +49,4 @@ const PokeList = (props) => {
     </>
   );
 };
-
 export default PokeList;
