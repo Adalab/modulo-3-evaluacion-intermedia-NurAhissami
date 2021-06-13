@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import data from '../data/data.json';
 import PokeList from './PokeList.js';
 import PokemonDetail from './PokemonDetail.js';
@@ -9,6 +9,13 @@ function App() {
   const [pokemons] = useState(data);
   const [favorites, setFavorites] = useState([]);
   const [color, setColor] = useState('far fa-heart');
+  const [favoriteslocal, setFavoriteslocal] = useState(
+    window.localStorage.getItem('favorites' || '')
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem('favorites', JSON.stringify(favoriteslocal));
+  });
 
   const renderPokeDetail = (routerProps) => {
     const routerpokeId = routerProps.match.params.pokeId;
@@ -23,6 +30,7 @@ function App() {
       return <p>No hay pokemones</p>;
     }
   };
+
   const favPokemon = (clickedPokemon) => {
     const pokemonFavorited = pokemons.find(
       (pokemon) => pokemon.id === clickedPokemon
@@ -31,6 +39,8 @@ function App() {
     if (!favorites.includes(pokemonFavorited)) {
       setFavorites([...favorites, pokemonFavorited]);
       setColor('fas fa-lg fa-heart');
+      setFavoriteslocal([...favorites, pokemonFavorited]);
+
       return;
     }
     const newFavoriters = favorites.filter(
@@ -38,6 +48,7 @@ function App() {
     );
     setFavorites(newFavoriters);
     setColor('far fa-heart');
+    setFavoriteslocal(newFavoriters);
   };
 
   return (
@@ -50,6 +61,7 @@ function App() {
               favPokemon={favPokemon}
               favorites={favorites}
               color={color}
+              localFav={favoriteslocal}
             />
             ;
           </Route>
