@@ -3,19 +3,19 @@ import Pokemon from './Pokemon';
 import logo from '../images/logo-pokemon.png';
 
 const PokeList = (props) => {
-  const favorites = props.favorites.map((favorite, indx) => {
+  const favorites = props.favorites.map((favorite, id) => {
     return (
-      <li key={indx} onClick={props.clickFavorites} className="listFav">
+      <li key={id} onClick={props.clickFavorites} className="listFav">
         <img src={favorite.url} alt={favorite.name} />
       </li>
     );
   });
-  const pokemon = props.pokemons.map((pokemon, indx) => {
+  const pokemon = props.pokemons.map((pokemon, id) => {
     const ifFav = props.favorites.find(
       (favorite) => favorite.id === pokemon.id
     );
     return (
-      <li key={pokemon.id} className="listPokemon">
+      <li key={id} className="listPokemon">
         <button
           id={pokemon.id}
           onClick={() => props.favPokemon(pokemon.id)}

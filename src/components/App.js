@@ -8,7 +8,7 @@ import '../stylesheets/App.css';
 function App() {
   const [pokemons] = useState(data);
   const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem('favorites'))
+    JSON.parse(localStorage.getItem('favorites') || [])
   );
 
   useEffect(() => {
@@ -30,23 +30,27 @@ function App() {
   };
 
   const favPokemon = (clickedPokemon) => {
-    const pokemonFavorited = pokemons.find(
-      (pokemon) => pokemon.id === clickedPokemon
-    );
-
-    if (!favorites.includes(pokemonFavorited)) {
-      setFavorites([...favorites, pokemonFavorited]);
+    const pokemonFavorited = favorites.find((pokemon) => {
+      console.log(pokemon.id, clickedPokemon);
+      return pokemon.id === clickedPokemon;
+    });
+    console.log(pokemonFavorited);
+    if (pokemonFavorited === undefined) {
+      const pokemonfav = pokemons.find((pokemon) => {
+        return pokemon.id === clickedPokemon;
+      });
+      setFavorites([...favorites, pokemonfav]);
+      // localStorage.setItem('favorites', JSON.stringify(favorites));
 
       // setFavoriteslocal([...favorites, pokemonFavorited]);
-      console.log(clickedPokemon);
-      console.log(pokemonFavorited);
+
       return;
     }
+    // localStorage.setItem('favorites', JSON.stringify(favorites));
     const newFavoriters = favorites.filter(
       (pokemon) => pokemon.id !== clickedPokemon
     );
     setFavorites(newFavoriters);
-
     // setFavoriteslocal(newFavoriters);
   };
 
